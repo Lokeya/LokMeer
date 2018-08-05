@@ -32,7 +32,7 @@ public class JDBCSample implements RequestHandler<String, String>{
         currentTime = resultSet.getObject(1).toString();
       }
 
-      logger.log("Successfully executed query.  Result for LokMeer " + currentTime);
+      logger.log("Successfully executed query.  Result for LokMeer Project " + currentTime);
 
     } catch (Exception e) {
       e.printStackTrace();
