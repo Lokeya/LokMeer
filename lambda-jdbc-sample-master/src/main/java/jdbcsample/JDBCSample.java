@@ -2,12 +2,14 @@ package jdbcsample;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class JDBCSample {
+public class JDBCSample implements RequestHandler<String, String>{
 
   public String getCurrentTime(Context context) {
     LambdaLogger logger = context.getLogger();
@@ -39,4 +41,9 @@ public class JDBCSample {
 
     return currentTime;
   }
+
+public String handleRequest(String arg0, Context arg1) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }
