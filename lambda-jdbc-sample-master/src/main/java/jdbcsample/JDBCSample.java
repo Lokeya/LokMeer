@@ -42,7 +42,8 @@ public class JDBCSample implements RequestHandler<String, String>{
     return currentTime;
   }
 
-public String handleRequest(String arg0, Context arg1) {
+
+ public String handleRequest(String arg0, Context arg1) {
 	// TODO Auto-generated method stub
 	return null;
 }
