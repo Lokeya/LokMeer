@@ -43,16 +43,19 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
           Connection conn = DriverManager.getConnection(url, username, password);
           Statement stmt = conn.createStatement();
           //ResultSet resultSet = stmt.executeQuery("SELECT NOW()");
-          ResultSet resultSet = stmt.executeQuery("SELECT user_id,Dish_nm,Dish_desc FROM FoodieDB.tb_Dishold;");
+          ResultSet resultSet = stmt.executeQuery("SELECT user_nm,Dish_nm,Dish_desc, Pickup_start_tm,Pickup_end_tm,Menu_dt FROM FoodieDB.tb_Dishold d  , FoodieDB.tb_User u   where     d.User_id = u.user_id ");
           JSONArray array = new JSONArray();
           
          while (resultSet.next()) {
           
         	 
         	JSONObject listObj = new JSONObject();
-            listObj.put("username", resultSet.getObject(1).toString());
-            listObj.put("title", resultSet.getObject(2).toString());
-             
+            listObj.put("usernm", resultSet.getObject(1).toString());
+            listObj.put("Dishnm", resultSet.getObject(2).toString());
+            listObj.put("Dishdesc", resultSet.getObject(3).toString());             
+            listObj.put("Pickupstarttm", resultSet.getTime(4).getTime());             
+            listObj.put("Pickupendtm", resultSet.getTime(5).getTime());             
+//            listObj.put("Menudt", resultSet.getObject(6).toString());             
             array.add(listObj);
             
           }
