@@ -1,7 +1,8 @@
-package com.dbutils.foodie;
+package com.utils.foodie;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DbHandler {
 
@@ -15,7 +16,7 @@ public class DbHandler {
 
 	          conn = DriverManager.getConnection(url, username, password);
 	          
-	        } catch (Exception e) {
+	        } catch (SQLException e) {
 	          e.printStackTrace();
 	        }
 		 return conn;
