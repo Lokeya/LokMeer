@@ -12,6 +12,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+
 import MenuListing from './MenuListing';
 
 function urlForQueryAndPage(key, value, pageNumber) {
@@ -60,22 +61,28 @@ _handleResponse = (response) => {
 
     return (
       <View style={styles.container}>
+      <View style={styles.navBar}>
+
+        <Image source={require('./Resources/orderfoodicon.jpg')} style={styles.image}/>
+
+        <View style={styles.rightNav}>
+
         <Text style={styles.description}>
           Welcome to the FoodConnect App
         </Text>
 
-        <Image source={require('./Resources/tix.jpg')} style={styles.image}/>
       
-      <TouchableOpacity
-          style={styles.searchButton}
-          onPress={this._onSearchPressed}
-          underlayColor='#fff'>
-          <Text style={styles.searchButtonText}>Now Serving</Text>
-      </TouchableOpacity> 
-    {spinner}
-    <Text style={styles.description}>{this.state.message}</Text>
+          <TouchableOpacity
+              style={styles.searchButton}
+              onPress={this._onSearchPressed}
+              underlayColor='#fff'>
+              <Text style={styles.searchButtonText}>Now Serving</Text>
+          </TouchableOpacity> 
+        {spinner}
+        <Text style={styles.description}>{this.state.message}</Text>
       </View>
-      
+      </View>
+     </View> 
     );
   }
 
@@ -108,6 +115,16 @@ _onSearchPressed = () => {
 
 
 const styles = StyleSheet.create({
+  navBar:{
+    height: 55,
+    backgroundColor:'white',
+    elevation:  3,
+    paddingHorizontal:15,
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent: 'space-between'
+  },
+
   description: {
     marginBottom: 20,
     fontSize: 18,
@@ -115,9 +132,10 @@ const styles = StyleSheet.create({
     color: '#656565'
   },
   container: {
-    padding: 30,
-    marginTop: 65,
-    alignItems: 'center'
+    flex:1,
+    //padding: 30,
+   // marginTop: 65,
+  //  alignItems: 'center'
   },
   flowRight: {
   flexDirection: 'row',
@@ -154,7 +172,8 @@ searchButton:{
       fontSize: 24,
   },
   image: {
-  width: 217,
-  height: 138,
+  width: 100,
+  height: 150,
+  alignItems: 'flex-end'
 },
 });

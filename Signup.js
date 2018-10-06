@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Alert, Button, TextInput, Text, View, StyleSheet,ImageBackground, TouchableOpacity, Image } from 'react-native';
-import WelcomePage from './WelcomePage'; 
+import { Alert, Text, Button, TextInput, TouchableOpacity, View, StyleSheet,ImageBackground, Image } from 'react-native';
+import Signupform from './Signupform'; 
 
 export default class App extends Component {
   constructor(props) {
@@ -18,14 +18,14 @@ export default class App extends Component {
     //Alert.alert('Credentials', `${username} + ${password}`);
     this.props.navigator.push({
       title: 'Today Menu at Olympia Oapline',
-      component: WelcomePage,
+      component: Login,
       });
   }
 
   onPress = () => {
     this.props.navigator.push({
-      title: 'Today Menu at Knock Kitchen',
-      component: WelcomePage,
+      title: 'Welcome to Knock Kitchen',
+      component: Signupform,
       });
   }
 
@@ -34,29 +34,23 @@ export default class App extends Component {
      
       <View style={styles.container}>
        <ImageBackground source={require('./Resources/bg_image.jpg')} style={styles.backgroundImage} >
-       <View style={ styles.loginForm }>
-        <TextInput
-          value={this.state.username}
-          onChangeText={(username) => this.setState({ username })}
-          placeholder={'10-digit Phone Number or Email'}
-          style={styles.input}
-        />
-        <TextInput
-          value={this.state.password}
-          onChangeText={(password) => this.setState({ password })}
-          placeholder={'Password'}
-          secureTextEntry={true}
-          style={styles.input}
-        />
-        
-        <TouchableOpacity
+           <View style={ styles.loginForm }>
+          
+            <TouchableOpacity
+               style={styles.button}
+               onPress={this.onPress}
+             >
+               <Text style={styles.buttonText}> Sign Up </Text>
+             </TouchableOpacity>
+
+             <TouchableOpacity
                style={styles.button}
                onPress={this.onPress}
              >
                <Text style={styles.buttonText}> Sign In </Text>
              </TouchableOpacity>
 
-        </View>
+            </View>
          </ImageBackground>
       </View>
      
@@ -65,13 +59,18 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  
+  /*container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+  },*/
   input: {
-    width: 250,
+    width: 200,
     height: 44,
     padding: 10,
     borderWidth: 4,
-    borderColor: '#A0A0A0',
+    borderColor: 'grey',
     marginBottom: 20,
   },
   container: {
@@ -95,14 +94,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'black'
   },
 
-  button: {
+button: {
     alignItems: 'center',
     backgroundColor: '#91C738',
     padding: 10,
-    width: 250,
+    width: 180,
     marginBottom: 30,
   },
-  
+
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',

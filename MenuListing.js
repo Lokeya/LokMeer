@@ -21,22 +21,53 @@ class ListItem extends React.PureComponent {
     const item = this.props.item;
     
     return (
-      <TouchableHighlight
+     
+     <TouchableHighlight
         onPress={this._onPress}
-        underlayColor='#dddddd'>
-        <View>
-          <View style={styles.rowContainer}>
-            <Image style={styles.thumb} source={{ uri: 'https://1.bp.blogspot.com/-i8xx8e8ZcGU/U-xzv4NO0iI/AAAAAAAAJ0Y/PwuQA0vfyq4/s1600/South%2BIndian%2BDosa-Plain%2Bdosa.jpg'}} /> 
-            <View style={styles.textContainer}>
-              <Text style={styles.title}
-                numberOfLines={1}>{item.title}</Text>
-                <Text style={styles.votes}
-                numberOfLines={1}>{item.username}</Text>
+        underlayColor='#dddddd' style={{flex:100,flexDirection:'row'}}>
+
+        <View style={styles.container}>
+          <View style={[{flexDirection:'row'}, styles.elementsContainer]}>
+            <Image source={require('./Resources/masaladosa.jpg')} style={styles.image}/>
+
+            <View style={{ flexDirection:'column', width: 200, height: 170}}> 
+
+                  <View style={{ flexDirection:'row', width: 300, height: 30, backgroundColor: '#91C738'}}>
+                         <Text>{item.Dishnm}</Text> 
+                    </View>
+                   <View style={{ flexDirection:'row', width: 300, height: 30}}>
+                       <Text>By {item.usernm} </Text> 
+                       <Image source={require('./Resources/callhomechef.png')} style={{height:20, width:20}}/>
+                  </View>
+                  
+                  
+                  <View style={{ flexDirection:'row'}}>
+                      <Text style={{flex: 1, flexWrap: 'wrap'}}> {item.Dishdesc}</Text> 
+                  </View>
+                  <View style={{ flexDirection:'row', width: 300, height: 30}}>
+                      <Image source={require('./Resources/Ellipse.png')} style={{height:20, width:20}}/>
                  </View>
+                 <View style={{ flexDirection:'row', width: 300, height: 30}}>
+                      <Image source={require('./Resources/1083479.png')} style={{height:20, width:20}}/>
+                      <Text>8 Am - 10 PM</Text> 
+                 </View>
+                  
+            </View>
+
+          <View style={{ flexDirection:'column', width: 100, height: 100}}> 
+           <View style={{flexDirection:'row', width: 100, height: 30}}> 
+             <View style={{ backgroundColor:'#91C738'}}>
+                      <Text>Rs 50</Text> 
+              </View>
+             
+              
           </View>
-          <View style={styles.separator}/>
+          </View>
         </View>
-      </TouchableHighlight>
+      </View>
+
+ </TouchableHighlight>
+      
     );
   }
 }
@@ -78,41 +109,108 @@ export default class MoviesPlaying extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
+
+  testContainer:{
+    flex:1,
+  },
+
+  navBar:{
+    height:55,
+    backgroundColor:'white',
+    elevation:3,
+
+  },
+
+  tabBar: {
+    backgroundColor:'red',
+    height: 60
+  },
+
+  newcontainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start'
+  },
+  item :{
+    flex: 0.25,
+    // width: 150, //using fixed item width instead of flex: 0.5 works
+    height: 100,
+    // flexGrow: 1,
+    // flexShrink: 0,
+    padding: 10,
+  },
+
   description: {
     marginBottom: 20,
     fontSize: 24,
     textAlign: 'center',
     color: '#656565'
   },
-  container: {
-    padding: 30,
-    marginTop: 65,
-    alignItems: 'center'
+  containerold: {
+    flexDirection: 'row',
+    //flex:1,
+   // flexWrap: 'wrap',
+    padding: 5,
+    marginTop: 2,
+    width:'50%',
+    height: '25%'
   },
  thumb: {
     width: 80,
-    height: 80,
+    height: 100,
+    marginLeft: 5,
     marginRight: 10
   },
   textContainer: {
-    flex: 1
+    flex: 1,
   },
   separator: {
     height: 1,
     backgroundColor: '#dddddd'
   },
-  votes: {
-    fontSize: 14,
+  textdescriptor: {
+    fontSize: 12,
     fontWeight: 'bold',
-    color: '#656565'
+    color: '#000000'
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
     color: '#F9F9F9',
-    backgroundColor: '#5AE14B'
+    fontFamily: 'Arial',
+    backgroundColor: '#91C738',
+    textAlign: 'left',
+    width: '130%'
+  },
+  title2: {
+    fontSize: 18,
+    textAlign: 'right'
   },
   rowContainer: {
     flexDirection: 'row',
-    padding: 10
+    padding: 5
   },
+
+  container: {
+    marginTop: 15,
+    flex: 1
+  },
+  headerStyle: {
+    fontSize: 24,
+    textAlign: 'center',
+    fontWeight: '100',
+    marginBottom: 24
+  },
+  elementsContainer: {
+    flex: 1,
+    backgroundColor: '#ecf5fd',
+    marginLeft: 4,
+    marginRight: 4,
+    marginBottom: 1
+  },
+   image: {
+  width: 130,
+  height: 150
+},
+  
 });
