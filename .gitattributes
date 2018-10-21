@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 *.pbxproj -text
+=======
+# Auto detect text files and perform LF normalization
+* text=auto
+>>>>>>> b007d5e72d8a4bc137c6d00fecbb6f81fd0f2bb0
