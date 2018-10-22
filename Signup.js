@@ -81,6 +81,8 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover', // or 'stretch',
     justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-end'
   },
 
   loginForm: {
@@ -97,14 +99,14 @@ const styles = StyleSheet.create({
 button: {
     alignItems: 'center',
     backgroundColor: '#91C738',
-    padding: 10,
-    width: 180,
+    padding: 18,
+    width: 222,
     marginBottom: 30,
+    borderRadius: 10
   },
 
   buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
     color: 'white',
   },
 });

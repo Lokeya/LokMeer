@@ -34,6 +34,9 @@ export default class App extends Component {
      
       <View style={styles.container}>
        <ImageBackground source={require('./Resources/bg_image.jpg')} style={styles.backgroundImage} >
+          <View style={{alignItems: 'center', marginBottom: 20, marginTop: 20 }}>
+            <Text style={styles.headerText}>Sign Up</Text>
+          </View>
        <View style={ styles.loginForm }>
         <TextInput
           value={this.state.username}
@@ -65,13 +68,17 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  
+  headerText: {
+    fontSize: 28,
+    color: '#91C738',
+    lineHeight: 29
+  },
   input: {
-    width: 250,
+    width: 275,
     height: 44,
     padding: 10,
-    borderWidth: 4,
-    borderColor: '#A0A0A0',
+    borderWidth: 2,
+    borderColor: '#91C738',
     marginBottom: 20,
   },
   container: {
@@ -98,14 +105,14 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     backgroundColor: '#91C738',
-    padding: 10,
-    width: 250,
+    padding: 18,
+    width: 222,
     marginBottom: 30,
+    borderRadius: 10
   },
   
   buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 22,
     color: 'white',
   },
 });

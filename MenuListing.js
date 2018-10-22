@@ -54,7 +54,7 @@ class ListItem extends React.PureComponent {
       <View style={styles.container}>
         <TouchableHighlight
           onPress={this._onPress}
-          underlayColor='#dddddd' style={{ flex: 100, flexDirection: 'row' }}>
+          underlayColor='#dddddd'>
           <View style={{flex:1, flexDirection:'row'}}>
             {/* Left Image View */}
             <View style={{flex:1, flexDirection:'column'}}>
@@ -64,7 +64,7 @@ class ListItem extends React.PureComponent {
             <View style={{ flex:2, flexDirection: 'column'}}>
               {/* Content Header */}
               <View style={{ height: 30, flexDirection: 'row', backgroundColor: '#91C738', justifyContent: 'space-between', alignItems: 'center'}}>
-                <View stlye={{flex:1, flexDirection: 'column'}}>
+                <View stlye={{flex: 1, flexDirection: 'column'}}>
                   <Text style={{ color: '#FFFFFF', fontSize: 18, marginLeft: 5 }}>{this._truncateHeaderText(item.Dishnm)}</Text> 
                 </View>
                 <View stlyw={{ flex: 2, flexDirection: 'column' }}>
@@ -72,14 +72,14 @@ class ListItem extends React.PureComponent {
                 </View>
               </View>
               {/* Content By and Time */}
-              <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-between', marginTop: 10}}>
+              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 10}}>
                 <View stlye={{flex:1, flexDirection: 'column'}}>
                   <View style={{flex: 1, flexDirection: 'row'}}>
                     <Text style={{marginRight: 2, marginLeft: 5}}>By {item.usernm} </Text> 
                     <Image source={require('./Resources/callhomechef.png')} style={{ height: 20, width: 20}} />
                   </View>
                 </View>
-                <View stlye={{ flex: 2, flexDirection: 'column' }}>
+                <View stlye={{ flex: 1, flexDirection: 'column' }}>
                   <View style={{flex: 1, flexDirection: 'row'}}>
                     <Image source={require('./Resources/generic_time.png')} style={{ height: 20, width: 20, marginRight: 5, marginLeft: 5}} />
                     <Text style={{marginRight: 5}}>8 Am - 10 PM</Text> 
@@ -87,18 +87,18 @@ class ListItem extends React.PureComponent {
                 </View>
               </View>
               {/* Content Description */}
-              <View style={{ flex: 2, flexDirection: 'row'}}>
+              <View style={{ flex: 1, flexDirection: 'row'}}>
                 <Text style={{marginLeft: 5}}>{item.Dishdesc}</Text>
               </View>
               {/* Content Type Icon */}
-              <View style={{ flex: 3, flexDirection: 'row' }}>
+              <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Image source={require('./Resources/veg_tag.png')} style={{ height: 20, width: 20, marginLeft: 5}} />
               </View>
             </View>
           </View>
         </TouchableHighlight>
         {/*Quantity and Button*/}
-        <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center'}}>
           {/*Quantity Select*/}
           <View style={{ flex: 1, flexDirection: 'column' }}>
             <View style={{ width: 120, flexDirection: 'row', marginTop: 5, padding: 5, backgroundColor: '#91C738', justifyContent: 'center', borderRadius: 100, marginLeft: 5 }}>
@@ -112,7 +112,7 @@ class ListItem extends React.PureComponent {
             </View>
           </View>
           {/*Add Button*/}
-          <View stlye={{ flex: 2, flexDirection: 'column' }}>
+          <View stlye={{ flex: 1, flexDirection: 'column' }}>
             <TouchableOpacity style={{ width: 100, padding: 5, backgroundColor: '#91C738', marginTop: 5, alignItems: 'center', borderRadius: 100, marginRight: 5, justifyContent: 'center' }} onPress={this._addToCart}>
               <Text style={{ color: '#FFFFFF', fontWeight: 'bold', fontSize: 20, textAlign: 'center' }}> Add</Text>
             </TouchableOpacity>
