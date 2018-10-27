@@ -237,4 +237,76 @@ public class OrderManagement {
 		//Return response
 		return jsonResponse;
 	}
+	
+	public JSONObject getHomeChefsForDate(String dt, int commId)
+	{
+		JSONObject jsonResponse = new JSONObject();
+		
+		try
+		{
+			//Get Connection to database
+			DbHandler dbh = new DbHandler();
+			Connection conn = dbh.getDBConnection();
+			
+			//Create DB query
+			Statement stmt = conn.createStatement();
+	        String query = "SELECT DISTINCT " +
+	        		"u.user_id," + 
+	        	    "u.user_nm, " +
+	        	    "b.building_nm, " +
+	        	    "f.flat_nm, " + 
+	        	    "u.profile_img_url "+
+	        	"FROM "+
+	        		"FoodieDB.tb_dish d "+
+	        	    "JOIN FoodieDB.tb_dish_instance di "+
+	        			"ON d.dish_id = di.dish_id " +
+	        		"JOIN FoodieDB.tb_user u "+ 
+	        			"ON d.user_id = u.user_id "+
+	        		"JOIN FoodieDB.tb_flat f "+
+	        			"ON u.flat_id = f.flat_id "+
+	        	        "AND u.building_id = f.building_id "+
+	        		"JOIN FoodieDB.tb_building b "+
+	        			"ON f.building_id = b.building_id "+
+	        	"WHERE "+
+	        		"u.community_id = "+ commId +
+	        		" AND di.menu_dt = " + "CAST('" + dt + "' AS DATE) " +
+	        	    "AND di.dish_instance_status IN (1,2)"; 
+	        		
+			System.out.println(query);
+			
+			//Execute query
+			ResultSet resultSet = stmt.executeQuery(query);
+			
+			//Create bodyJSON
+			JSONArray jsonArr = new JSONArray();
+			while (resultSet.next())
+			{
+				JSONObject jsonObj = new JSONObject();
+				
+				jsonObj.put("userId", resultSet.getInt("user_id"));
+				jsonObj.put("userNm", resultSet.getString("user_nm"));
+				jsonObj.put("bldgNm", resultSet.getString("building_nm"));
+				jsonObj.put("flatNm", resultSet.getString("flat_nm"));
+				jsonObj.put("profileImgUrl", resultSet.getString("profile_img_url"));
+								
+				jsonArr.add(jsonObj);
+			}
+			
+			System.out.println("Body JSON Output");
+			System.out.println(jsonArr.toString());
+			
+			//Create JSON response object
+			JSONHandler jsonh = new JSONHandler();
+			jsonResponse = jsonh.createJSONResponse("User detail", jsonArr);
+			
+			//Cleanup
+			conn.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		//Return response
+		return jsonResponse;
+	}
 }

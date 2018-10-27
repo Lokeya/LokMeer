@@ -28,8 +28,13 @@ public class UtilCaller {
 		/***********************************************************************************/
 		
 		/*********Get dish instance information to display on Order food page***************/
-		JSONObject dishInstanceDtl = om.getDishInstancesForDate("2018-07-29", 1);		
-		System.out.println("Dish instance detail JSON:" + dishInstanceDtl.toJSONString());
+		//JSONObject dishInstanceDtl = om.getDishInstancesForDate("2018-07-29", 1);		
+		//System.out.println("Dish instance detail JSON:" + dishInstanceDtl.toJSONString());
+		/***********************************************************************************/
+		
+		/*********Get home chef information to display on Order food filter page***************/
+		JSONObject homeChefDtl = om.getHomeChefsForDate("2018-07-29", 1);		
+		System.out.println("Dish instance detail JSON:" + homeChefDtl.toJSONString());
 		/***********************************************************************************/
 		
 	}
