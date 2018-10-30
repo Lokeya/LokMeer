@@ -33,8 +33,16 @@ public class UtilCaller {
 		/***********************************************************************************/
 		
 		/*********Get home chef information to display on Order food filter page***************/
-		JSONObject homeChefDtl = om.getHomeChefsForDate("2018-07-29", 1);		
-		System.out.println("Dish instance detail JSON:" + homeChefDtl.toJSONString());
+		//JSONObject homeChefDtl = om.getHomeChefsForDate("2018-07-29", 1);		
+		//System.out.println("Dish instance detail JSON:" + homeChefDtl.toJSONString());
+		/***********************************************************************************/
+		
+		/**********Core App Calls*************/
+		CoreApp ca = new CoreApp();
+		
+		/*********Get diet types to display on Order food filter page***************/
+		JSONObject dietTypes = ca.getDietTypes();		
+		System.out.println("Diet Types JSON:" + dietTypes.toJSONString());
 		/***********************************************************************************/
 		
 	}
