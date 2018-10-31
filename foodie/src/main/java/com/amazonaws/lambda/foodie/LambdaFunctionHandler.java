@@ -1,9 +1,12 @@
 package com.amazonaws.lambda.foodie;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -30,8 +33,19 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
             output.write(Character.toUpperCase(letter));
         }*/
         
-        LambdaLogger logger = context.getLogger();
-        logger.log("Invoked Foodie ");
+    	LambdaLogger logger = context.getLogger();
+    	InputStreamReader isr = new InputStreamReader(input, Charset.forName("UTF-8"));
+    	BufferedReader br = new BufferedReader(isr);
+    	String line = ""; 
+    	String line1 = "";
+    	while ((line1 = br.readLine()) != null) {
+
+             line = line1;
+    		logger.log(" new output "+ line);
+    	}  
+    	
+        
+        logger.log("Invoked Foodie " );
 
         String currentTime = "unavailable";
 
@@ -63,27 +77,39 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
 */         
          /**********Order Management Calls*************/
  		OrderManagement om = new OrderManagement();
+ 		JSONObject returnObj = new JSONObject();
+ 		
+ 		if(line.contains("getActiveDates"))
+ 		{
  		
  		/*********Get list of dates which have active or sold out dish instances************/
- 		JSONObject activeDates = om.getActiveDates(1);
- 		System.out.println("Active Dates JSON:" + activeDates.toJSONString());
+ 			returnObj = om.getActiveDates(1);
+ 		System.out.println("Active Dates JSON:" + returnObj.toJSONString());
  		/***********************************************************************************/
- 				
+ 		
+ 		}
+ 		else if(line.contains("getDishInstanceCountforDate"))
+ 		{
  		/*********Get Dish instance count to display on Order food page*********************/
- 		JSONObject dishInstCnt = om.getDishInstanceCountforDate("2018-08-29", 1);		
- 		System.out.println("Dish Instance Count JSON:" + dishInstCnt.toJSONString());
+ 			returnObj = om.getDishInstanceCountforDate("2018-08-29", 1);		
+ 		System.out.println("Dish Instance Count JSON:" + returnObj.toJSONString());
  		/***********************************************************************************/
  		
+ 		} else if(line.contains("getHomeChefCountforDate"))
+ 		{	
  		/*********Get Home chef count to display on Order food page*************************/
- 		JSONObject homeChefCnt = om.getHomeChefCountforDate("2018-08-29", 1);		
- 		System.out.println("Home chef Count JSON:" + homeChefCnt.toJSONString());
+ 		returnObj = om.getHomeChefCountforDate("2018-08-29", 1);		
+ 		System.out.println("Home chef Count JSON:" + returnObj.toJSONString());
  		/***********************************************************************************/
+ 		}
  		
+ 		else if(line.contains("getDishInstancesForDate"))
+ 		{
  		/*********Get dish instance information to display on Order food page***************/
- 		JSONObject dishInstanceDtl = om.getDishInstancesForDate("2018-07-29", 1);		
- 		System.out.println("Dish instance detail JSON:" + dishInstanceDtl.toJSONString());
+ 			returnObj = om.getDishInstancesForDate("2018-07-29", 1);		
+ 		System.out.println("Dish instance detail JSON:" + returnObj.toJSONString());
  		/***********************************************************************************/
-
+ 		}
          
           
           /*StringBuilder wrapperObj = new StringBuilder();
@@ -107,7 +133,7 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
           
          
           OutputStreamWriter writer = new OutputStreamWriter(output, "UTF-8");
-          writer.write(dishInstanceDtl.toJSONString());  
+          writer.write(returnObj.toJSONString());  
           writer.close(); 
           
         } catch (Exception e) {
