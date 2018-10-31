@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.engine.foodie.OrderManagement;
 
 public class LambdaFunctionHandler implements RequestStreamHandler {
 
@@ -36,7 +37,7 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
 
         // Get time from DB server
         try {
-          String url = "jdbc:mysql://foodie.cl8mn8l8ahnm.us-east-1.rds.amazonaws.com:3306";
+/*          String url = "jdbc:mysql://foodie.cl8mn8l8ahnm.us-east-1.rds.amazonaws.com:3306";
           String username = "Lokmeer";
           String password = "Welcome123";
 
@@ -59,6 +60,31 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
             array.add(listObj);
             
           }
+*/         
+         /**********Order Management Calls*************/
+ 		OrderManagement om = new OrderManagement();
+ 		
+ 		/*********Get list of dates which have active or sold out dish instances************/
+ 		JSONObject activeDates = om.getActiveDates(1);
+ 		System.out.println("Active Dates JSON:" + activeDates.toJSONString());
+ 		/***********************************************************************************/
+ 				
+ 		/*********Get Dish instance count to display on Order food page*********************/
+ 		JSONObject dishInstCnt = om.getDishInstanceCountforDate("2018-08-29", 1);		
+ 		System.out.println("Dish Instance Count JSON:" + dishInstCnt.toJSONString());
+ 		/***********************************************************************************/
+ 		
+ 		/*********Get Home chef count to display on Order food page*************************/
+ 		JSONObject homeChefCnt = om.getHomeChefCountforDate("2018-08-29", 1);		
+ 		System.out.println("Home chef Count JSON:" + homeChefCnt.toJSONString());
+ 		/***********************************************************************************/
+ 		
+ 		/*********Get dish instance information to display on Order food page***************/
+ 		JSONObject dishInstanceDtl = om.getDishInstancesForDate("2018-07-29", 1);		
+ 		System.out.println("Dish instance detail JSON:" + dishInstanceDtl.toJSONString());
+ 		/***********************************************************************************/
+
+         
           
           /*StringBuilder wrapperObj = new StringBuilder();
           wrapperObj.append(" { \"statusCode\" : 200 , ");
@@ -68,7 +94,7 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
           */ 
           
 
-         JSONObject headerJson = new JSONObject();
+        /* JSONObject headerJson = new JSONObject();
          headerJson.put("x-custom-header", "my custom header value");
          
          
@@ -77,11 +103,11 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
           wrapperObj.put("headers", headerJson);
           wrapperObj.put("body"  ,array.toJSONString());
           wrapperObj.put("isBase64Encoded" ,false );
-          
+        */  
           
          
           OutputStreamWriter writer = new OutputStreamWriter(output, "UTF-8");
-          writer.write(wrapperObj.toJSONString());  
+          writer.write(dishInstanceDtl.toJSONString());  
           writer.close(); 
           
         } catch (Exception e) {
