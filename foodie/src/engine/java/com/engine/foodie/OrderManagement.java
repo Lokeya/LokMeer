@@ -210,8 +210,8 @@ public class OrderManagement {
 				jsonObj.put("dietTypeId", resultSet.getInt("diet_id"));
 				jsonObj.put("qty", resultSet.getString("qty"));
 				jsonObj.put("dishImgUrl", resultSet.getString("dish_img_url"));
-				jsonObj.put("pickupStart", resultSet.getTime("pickup_start"));
-				jsonObj.put("pickupEnd", resultSet.getTime("pickup_end"));
+				jsonObj.put("pickupStart", resultSet.getTime("pickup_start").toString());
+				jsonObj.put("pickupEnd", resultSet.getTime("pickup_end").toString());
 				jsonObj.put("priceAmt", resultSet.getFloat("price_amt"));
 				jsonObj.put("dishStatus", resultSet.getInt("dish_status"));
 				jsonObj.put("hcName", resultSet.getString("hc_nm"));
