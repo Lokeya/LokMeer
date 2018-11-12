@@ -27,9 +27,9 @@ public class UtilCaller {
 		//System.out.println("Home chef Count JSON:" + homeChefCnt.toJSONString());
 		/***********************************************************************************/
 		
-		/*********Get dish instance information to display on Order food page***************/
-		//JSONObject dishInstanceDtl = om.getDishInstancesForDate("2018-07-29", 1);		
-		//System.out.println("Dish instance detail JSON:" + dishInstanceDtl.toJSONString());
+		/*********Get Open/Closed Order details to display on Order food page***************/
+		JSONObject openOrderDtl = om.getOpenOrders(1000001);		
+		System.out.println("Open Order detail JSON:" + openOrderDtl.toJSONString());
 		/***********************************************************************************/
 		
 		/*********Get home chef information to display on Order food filter page***************/
@@ -38,11 +38,11 @@ public class UtilCaller {
 		/***********************************************************************************/
 		
 		/**********Core App Calls*************/
-		CoreApp ca = new CoreApp();
+		//CoreApp ca = new CoreApp();
 		
 		/*********Get diet types to display on Order food filter page***************/
-		JSONObject dietTypes = ca.getDietTypes();		
-		System.out.println("Diet Types JSON:" + dietTypes.toJSONString());
+		//JSONObject dietTypes = ca.getDietTypes();		
+		//System.out.println("Diet Types JSON:" + dietTypes.toJSONString());
 		/***********************************************************************************/
 		
 	}

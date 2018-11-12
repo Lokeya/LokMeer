@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.utils.foodie.DbHandler;
@@ -34,19 +35,24 @@ public class CoreApp {
 			ResultSet resultSet = stmt.executeQuery(query);
 			
 			//Create bodyJSON
-			JSONObject jsonObj = new JSONObject();
+			JSONArray jsonArr = new JSONArray();
+			
 			while (resultSet.next())
 			{
+				JSONObject jsonObj = new JSONObject();
+				
 				jsonObj.put("dietTypeId", resultSet.getInt(1));
 				jsonObj.put("dietTypeDesc", resultSet.getString(2));
+				
+				jsonArr.add(jsonObj);
 			}
 			
 			System.out.println("Body JSON Output");
-			System.out.println(jsonObj.toString());
+			System.out.println(jsonArr.toString());
 			
 			//Create JSON response object
 			JSONHandler jsonh = new JSONHandler();
-			jsonResponse = jsonh.createJSONResponse("Diet Types", jsonObj);
+			jsonResponse = jsonh.createJSONResponse("Diet Types", jsonArr);
 			
 			//Cleanup
 			conn.close();

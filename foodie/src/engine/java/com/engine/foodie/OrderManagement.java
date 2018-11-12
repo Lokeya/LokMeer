@@ -309,4 +309,104 @@ public class OrderManagement {
 		//Return response
 		return jsonResponse;
 	}
+	
+	public JSONObject getOpenOrders(int userId)
+	{
+		JSONObject jsonResponse = new JSONObject();
+		
+		try
+		{
+			//Get Connection to database
+			DbHandler dbh = new DbHandler();
+			Connection conn = dbh.getDBConnection();
+			
+			//Create DB query
+			Statement stmt = conn.createStatement();
+			String query = "SELECT" +
+				    "	o.order_id order_id," +
+				    "	o.order_dt_time order_dt_time," +
+				    "	o.order_sts order_status," +
+				    "	u.user_nm user_nm," +
+				    "	d.user_id user_id," +
+				    "	b.building_nm building_nm," +
+				    "	f.flat_nm flat_nm," +
+				    "	u.phone_nbr phone_nbr," +
+				    "	di.menu_dt menu_dt," +
+				    "	di.pickup_start_tm pickup_start_tm," +
+				    "	di.pickup_end_tm pickup_end_tm," +
+				    "	d.dish_nm dish_nm," +
+				    "	od.unit_cnt unit_cnt," +
+				    "	od.order_di_amt order_di_amt," +
+				    "	o.order_amt order_amt," +
+				    "	di.packing_charges packing_charges" +
+				    "	FROM" +
+				    "	FoodieDB.tb_order o" +
+				    "	JOIN FoodieDB.tb_order_details od" +
+				    "	ON o.order_id = od.order_id" +
+				    "	JOIN FoodieDB.tb_dish_instance di" +
+				    "	ON od.dish_instance_id = di.dish_instance_id" + 
+				    "	JOIN FoodieDB.tb_dish d"  +
+				    "	ON di.dish_id = d.dish_id"	+
+				    "	JOIN FoodieDB.tb_user u"	+
+				    "	ON u.user_id = d.user_id"	+
+				    "	JOIN FoodieDB.tb_building b"	+
+				    "	ON u.building_id = b.building_id"	+
+				    "	JOIN FoodieDB.tb_flat f"	+
+				    "	ON u.building_id = f.building_id"	+
+				    "	AND u.flat_id = f.flat_id"	+
+				    "	WHERE"	+
+				    "	o.user_id = " + userId +
+				    "	AND"	+
+				    "	o.order_sts IN ('O', 'C')"	+
+				    "	ORDER BY o.order_dt_time DESC";
+	        		
+			System.out.println(query);
+			
+			//Execute query
+			ResultSet resultSet = stmt.executeQuery(query);
+			
+			//Create bodyJSON
+			JSONArray jsonArr = new JSONArray();
+			while (resultSet.next())
+			{
+				JSONObject jsonObj = new JSONObject();
+				
+				jsonObj.put("orderId", resultSet.getInt("order_id"));
+				jsonObj.put("orderDtTm", resultSet.getTime("order_dt_time"));
+				jsonObj.put("orderStatus", resultSet.getString("order_status"));
+				jsonObj.put("userNm", resultSet.getString("user_nm"));
+				jsonObj.put("userId", resultSet.getInt("user_id"));
+				jsonObj.put("buildingNm", resultSet.getString("building_nm"));
+				jsonObj.put("flatNm", resultSet.getString("flat_nm"));
+				jsonObj.put("phoneNbr", resultSet.getString("phone_nbr"));
+				jsonObj.put("menuDt", resultSet.getDate("menu_dt"));
+				jsonObj.put("pickupStartTm", resultSet.getTime("pickup_start_tm"));
+				jsonObj.put("pickupEndTm", resultSet.getTime("pickup_end_tm"));
+				jsonObj.put("dishNm", resultSet.getString("dish_nm"));
+				jsonObj.put("unitCnt", resultSet.getInt("unit_cnt"));
+				jsonObj.put("orderDiAmt", resultSet.getFloat("order_di_amt"));
+				jsonObj.put("orderAmt", resultSet.getFloat("order_amt"));
+				jsonObj.put("packingCharges", resultSet.getInt("packing_charges"));
+				
+				jsonArr.add(jsonObj);
+			}
+			
+			System.out.println("Body JSON Output");
+			System.out.println(jsonArr.toString());
+			
+			//Create JSON response object
+			JSONHandler jsonh = new JSONHandler();
+			jsonResponse = jsonh.createJSONResponse("Open Order Details", jsonArr);
+			
+			//Cleanup
+			conn.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		//Return response
+		return jsonResponse;
+	}
+
 }
