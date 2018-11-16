@@ -27,7 +27,7 @@ public class UtilCaller {
 		//System.out.println("Home chef Count JSON:" + homeChefCnt.toJSONString());
 		/***********************************************************************************/
 		
-		/*********Get Open/Closed Order details to display on Order food page***************/
+		/*********Get Open Order details to display on Order food page***************/
 		JSONObject openOrderDtl = om.getOpenOrders(1000001);		
 		System.out.println("Open Order detail JSON:" + openOrderDtl.toJSONString());
 		/***********************************************************************************/
