@@ -1,6 +1,8 @@
 package com.engine.foodie;
 
 import java.sql.*;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -9,8 +11,24 @@ import com.utils.foodie.*;
 
 public class OrderManagement {
 	
-	public JSONObject getActiveDates(int commId)
+	public JSONObject getActiveDates(Map func_params)
 	{
+		
+		int commId = 0; 
+		
+		// iterating address Map 
+        Iterator<Map.Entry> itr1 = func_params.entrySet().iterator(); 
+        while (itr1.hasNext()) { 
+            Map.Entry pair = itr1.next(); 
+            System.out.println(pair.getKey() + " : " + pair.getValue());
+            if(((String)pair.getKey()).equalsIgnoreCase("comm_id"))
+            {
+            	commId = Integer.parseInt((String)pair.getValue());
+            }
+            
+            System.out.println("Order management "+ commId);
+        }
+		
 		JSONObject jsonResponse = new JSONObject();
 		
 		try
