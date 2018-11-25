@@ -125,30 +125,43 @@ public class LambdaFunctionHandler implements RequestStreamHandler {
  		
  		}
  		
- 		/*
- 		else if(line.contains("getDishInstanceCountforDate"))
+ 		else if(func_name.equalsIgnoreCase("getDishInstanceCountforDate"))
  		{
- 		*//*********Get Dish instance count to display on Order food page*********************//*
- 			returnObj = om.getDishInstanceCountforDate("2018-08-29", 1);		
- 		System.out.println("Dish Instance Count JSON:" + returnObj.toJSONString());
- 		*//***********************************************************************************//*
+ 			//"2018-08-29", 1
+ 			returnObj = om.getDishInstanceCountforDate(func_params);		
  		
- 		} else if(line.contains("getHomeChefCountforDate"))
+ 		} else if(func_name.equalsIgnoreCase("getHomeChefCountforDate"))
  		{	
- 		*//*********Get Home chef count to display on Order food page*************************//*
- 		returnObj = om.getHomeChefCountforDate("2018-08-29", 1);		
+ 		 //	"2018-08-29", 1
+ 		/*********Get Home chef count to display on Order food page*************************/
+ 		returnObj = om.getHomeChefCountforDate(func_params);		
  		System.out.println("Home chef Count JSON:" + returnObj.toJSONString());
- 		*//***********************************************************************************//*
  		}
  		
- 		else if(line.contains("getDishInstancesForDate"))
+ 		else if(func_name.equalsIgnoreCase("getDishInstancesForDate"))
  		{
- 		*//*********Get dish instance information to display on Order food page***************//*
- 			returnObj = om.getDishInstancesForDate("2018-07-29", 1);		
+ 		/*********Get dish instance information to display on Order food page***************/
+ 			//"2018-07-29", 1
+ 			returnObj = om.getDishInstancesForDate(func_params);		
  		System.out.println("Dish instance detail JSON:" + returnObj.toJSONString());
- 		*//***********************************************************************************//*
+ 		
  		}
-*/         
+ 		else if(func_name.equalsIgnoreCase("getDishInstancesForDate"))
+ 		{
+ 		/*********Get dish instance information to display on Order food page***************/
+ 			//"2018-07-29", 1
+ 			returnObj = om.getDishInstancesForDate(func_params);		
+ 		System.out.println("Dish instance detail JSON:" + returnObj.toJSONString());
+ 		
+ 		}
+ 		else if(func_name.equalsIgnoreCase("getOpenOrders"))
+ 		{
+ 		/*********Get dish instance information to display on Order food page***************/
+ 			// 1
+ 			returnObj = om.getOpenOrders(func_params);		
+ 		System.out.println("Dish instance detail JSON:" + returnObj.toJSONString());
+ 		
+ 		}
           
           /*StringBuilder wrapperObj = new StringBuilder();
           wrapperObj.append(" { \"statusCode\" : 200 , ");
