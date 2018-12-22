@@ -1,0 +1,46 @@
+{
+  "user": {
+    "id": 1234,
+    "community_id": 234
+  },
+  "cart_items": [
+    {
+      "id": 123,
+      "name": "abcd",
+      "image_url": "",
+      "description": "abcd",
+      "quantity": 2,
+      "price": {
+        "price_per": 12.23,
+        "sub_total": 24.46,
+        "tax": 1.54,
+        "total": 26,
+        "currency": "$"
+      },
+      "seller": {
+        "id": 123,
+        "name": "asds",
+        "contact": "3344-3344-44"
+      }
+    },
+    {
+      "id": 345,
+      "name": "hello",
+      "image_url": "D:Lokia",
+      "description": "hello",
+      "quantity": 20,
+      "price": {
+        "price_per": 12.23,
+        "sub_total": 24.46,
+        "tax": 1.54,
+        "total": 26,
+        "currency": "$"
+      },
+      "seller": {
+        "id": 123,
+        "name": "asds",
+        "contact": "3344-3344-44"
+      }
+    }
+  ]
+}

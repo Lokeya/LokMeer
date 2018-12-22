@@ -28,8 +28,8 @@ public class UtilCaller {
 		/***********************************************************************************/
 		
 		/*********Get Open Order details to display on Order food page***************/
-		JSONObject openOrderDtl = om.getOpenOrders(1000001);		
-		System.out.println("Open Order detail JSON:" + openOrderDtl.toJSONString());
+		//JSONObject openOrderDtl = om.getOpenOrders(1000001);		
+		//System.out.println("Open Order detail JSON:" + openOrderDtl.toJSONString());
 		/***********************************************************************************/
 		
 		/*********Get dish instance information to display on Order food page***************/
@@ -49,6 +49,10 @@ public class UtilCaller {
 		//JSONObject dietTypes = ca.getDietTypes();		
 		//System.out.println("Diet Types JSON:" + dietTypes.toJSONString());
 		/***********************************************************************************/
+		
+		JSONHandler jh = new JSONHandler();
+		jh.parsePlaceOrderJSON();
+		System.out.println("Successfully parsed JSON");
 		
 	}
 

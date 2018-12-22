@@ -427,4 +427,11 @@ public class OrderManagement {
 		return jsonResponse;
 	}
 
+	public void placeOrder() {
+		// parsePlaceOrderJSON in JSONHandler.java parses the JSON input(received from front end)
+		// TO DO
+		// The above input to be passed as parameter to Stored Procedure 
+		// Call DB Stored Procedure that inserts data to tables
+	}
+	
 }
