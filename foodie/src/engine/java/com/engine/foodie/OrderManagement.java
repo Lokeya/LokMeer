@@ -26,7 +26,7 @@ public class OrderManagement {
             	commId = Integer.parseInt((String)pair.getValue());
             }
             
-            System.out.println("Order management "+ commId);
+            System.out.println("Order management Community ID"+ commId);
         }
 		
 		JSONObject jsonResponse = new JSONObject();
@@ -79,8 +79,30 @@ public class OrderManagement {
 	}
 
 	
-	public JSONObject getDishInstanceCountforDate(String dt, int commId)
+	public JSONObject getDishInstanceCountforDate(Map func_params)
 	{
+		String dt = null;
+		int commId = 0; 
+		
+		// iterating address Map 
+        Iterator<Map.Entry> itr1 = func_params.entrySet().iterator(); 
+        while (itr1.hasNext()) { 
+            Map.Entry pair = itr1.next(); 
+            System.out.println(pair.getKey() + " : " + pair.getValue());
+            if(((String)pair.getKey()).equalsIgnoreCase("comm_id"))
+            {
+            	commId = Integer.parseInt((String)pair.getValue());
+            }
+            //	To check if "menu_dt" is correct
+            if(((String)pair.getKey()).equalsIgnoreCase("menu_dt"))
+            {
+            	dt = (String)pair.getValue();
+            }
+            System.out.println("Order management Community ID"+ commId);
+            System.out.println("Order management Menu date"+ dt);
+        }
+	
+		
 		JSONObject jsonResponse = new JSONObject();
 		
 		try
@@ -123,8 +145,30 @@ public class OrderManagement {
 		return jsonResponse;
 	}
 	
-	public JSONObject getHomeChefCountforDate(String dt, int commId)
+	public JSONObject getHomeChefCountforDate(Map func_params)
 	{
+		
+		String dt = null;
+		int commId = 0; 
+		
+		// iterating address Map 
+        Iterator<Map.Entry> itr1 = func_params.entrySet().iterator(); 
+        while (itr1.hasNext()) { 
+            Map.Entry pair = itr1.next(); 
+            System.out.println(pair.getKey() + " : " + pair.getValue());
+            if(((String)pair.getKey()).equalsIgnoreCase("comm_id"))
+            {
+            	commId = Integer.parseInt((String)pair.getValue());
+            }
+            //	To check if "menu_dt" is correct
+            if(((String)pair.getKey()).equalsIgnoreCase("menu_dt"))
+            {
+            	dt = (String)pair.getValue();
+            }
+            System.out.println("Order management Community ID"+ commId);
+            System.out.println("Order management Menu date"+ dt);
+        }
+        
 		JSONObject jsonResponse = new JSONObject();
 		
 		try
@@ -174,8 +218,30 @@ public class OrderManagement {
 		return jsonResponse;
 	}
 	
-	public JSONObject getDishInstancesForDate(String dt, int commId)
+	public JSONObject getDishInstancesForDate(Map func_params)
 	{
+		String dt = null;
+		int commId = 0; 
+		
+		// iterating address Map 
+        Iterator<Map.Entry> itr1 = func_params.entrySet().iterator(); 
+        while (itr1.hasNext()) { 
+            Map.Entry pair = itr1.next(); 
+            System.out.println(pair.getKey() + " : " + pair.getValue());
+            if(((String)pair.getKey()).equalsIgnoreCase("comm_id"))
+            {
+            	commId = Integer.parseInt((String)pair.getValue());
+            }
+            //	To check if "menu_dt" is correct
+            if(((String)pair.getKey()).equalsIgnoreCase("menu_dt"))
+            {
+            	dt = (String)pair.getValue();
+            }
+            System.out.println("Order management Community ID"+ commId);
+            System.out.println("Order management Menu date"+ dt);
+        }
+
+		
 		JSONObject jsonResponse = new JSONObject();
 		
 		try
@@ -256,8 +322,29 @@ public class OrderManagement {
 		return jsonResponse;
 	}
 	
-	public JSONObject getHomeChefsForDate(String dt, int commId)
+	public JSONObject getHomeChefsForDate(Map func_params)
 	{
+		String dt = null;
+		int commId = 0; 
+		
+		// iterating address Map 
+        Iterator<Map.Entry> itr1 = func_params.entrySet().iterator(); 
+        while (itr1.hasNext()) { 
+            Map.Entry pair = itr1.next(); 
+            System.out.println(pair.getKey() + " : " + pair.getValue());
+            if(((String)pair.getKey()).equalsIgnoreCase("comm_id"))
+            {
+            	commId = Integer.parseInt((String)pair.getValue());
+            }
+            //	To check if "menu_dt" is correct
+            if(((String)pair.getKey()).equalsIgnoreCase("menu_dt"))
+            {
+            	dt = (String)pair.getValue();
+            }
+            System.out.println("Order management Community ID"+ commId);
+            System.out.println("Order management Menu date"+ dt);
+        }
+
 		JSONObject jsonResponse = new JSONObject();
 		
 		try
@@ -328,8 +415,23 @@ public class OrderManagement {
 		return jsonResponse;
 	}
 	
-	public JSONObject getOpenOrders(int userId)
+	public JSONObject getOpenOrders(Map func_params)
 	{
+		int userId = 0;
+		// iterating address Map 
+        Iterator<Map.Entry> itr1 = func_params.entrySet().iterator(); 
+        while (itr1.hasNext()) { 
+            Map.Entry pair = itr1.next(); 
+            System.out.println(pair.getKey() + " : " + pair.getValue());
+            if(((String)pair.getKey()).equalsIgnoreCase("user_id"))
+            {
+            	userId = Integer.parseInt((String)pair.getValue());
+            }
+            
+            System.out.println("Order management User ID"+ userId);
+        }
+	
+		
 		JSONObject jsonResponse = new JSONObject();
 		
 		try
