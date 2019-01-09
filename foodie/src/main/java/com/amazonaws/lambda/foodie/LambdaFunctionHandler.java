@@ -26,8 +26,6 @@ import com.engine.foodie.OrderManagement;
 
 public class LambdaFunctionHandler implements RequestStreamHandler {
 
-    @SuppressWarnings("unchecked")
-	@Override
     public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
 
         
