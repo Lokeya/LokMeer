@@ -22,16 +22,76 @@ import org.json.simple.parser.JSONParser;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.amazonaws.services.lambda.runtime.events.CognitoEvent;
 import com.engine.foodie.OrderManagement;
 
-public class LambdaLoginTriggerHandler implements RequestStreamHandler {
+public class LambdaLoginTriggerHandler implements RequestStreamHandler{
 
+	/* Input Request Format
+	 * 
+	 *  {
+    "request": {
+        "userAttributes": {
+            "sub": "10d2f0d6-81e5-4b1e-a858-30f9a4a368ab",
+            "cognito:user_status": "CONFIRMED",
+            "email_verified": "true",
+            "email": "Meenas@gmail.com"
+        }
+    },
+    "callerContext": {
+        "clientId": "2dv4e6r1gsdgufenai3clm5ic6",
+        "awsSdkVersion": "aws-sdk-unknown-unknown"
+    },
+    "response": {},
+    "region": "us-east-1",
+    "userName": "Test891",
+    "triggerSource": "PostConfirmation_ConfirmSignUp",
+    "version": "1",
+    "userPoolId": "us-east-1_4X7ty24eC"
+} 
+	 * 
+	 * (non-Javadoc)
+	 * @see com.amazonaws.services.lambda.runtime.RequestStreamHandler#handleRequest(java.io.InputStream, java.io.OutputStream, com.amazonaws.services.lambda.runtime.Context)
+	 */
+	
+	
+	
     @SuppressWarnings("unchecked")
 	public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
 
         
         
     	LambdaLogger logger = context.getLogger();
+    	
+    	InputStreamReader isr = new InputStreamReader(input, Charset.forName("UTF-8"));
+    	BufferedReader br = new BufferedReader(isr);
+    	String in = ""; 
+    	String line1 = "";
+    	while ((line1 = br.readLine()) != null) {
+
+             in += line1;
+    		logger.log(" new user output "+ in);
+    	}  
+    	
+        
+        logger.log("Invoked Foodie Login function " + in);
+        
+        JSONParser parser = new JSONParser();
+        
+        Object objIn = null ;
+        
+        try {
+
+             objIn = parser.parse(in);
+        }
+        catch(Exception ex)
+        {
+        	ex.printStackTrace();
+        }
+
+        JSONObject inObj =  (JSONObject)objIn;
+        
+        System.out.println(inObj.toJSONString());
     	
         // Get time from DB server
     	logger.log("Invoked Foodie LOGIN  " );
@@ -51,23 +111,7 @@ public class LambdaLoginTriggerHandler implements RequestStreamHandler {
          /**********Order Management Calls*************/
           
           
-          JSONObject headerJson = new JSONObject();
-          headerJson.put("x-custom-header", "my custom header value");
-          
-          
-           JSONObject wrapperObj = new JSONObject();
-           wrapperObj.put("statusCode" ,200 );
-           wrapperObj.put("headers", headerJson);
-           wrapperObj.put("body"  ,"");
-           wrapperObj.put("isBase64Encoded" ,false );
-           
-           
-          
-           OutputStreamWriter writer = new OutputStreamWriter(output, "UTF-8");
-           writer.write(wrapperObj.toJSONString());  
-           writer.close(); 
-
-           
+                     
            
         } catch (Exception e) {
           e.printStackTrace();
@@ -77,6 +121,8 @@ public class LambdaLoginTriggerHandler implements RequestStreamHandler {
         
         logger.log("Successfully executed login query.  Result for LokMeer Project " );
         
+        
+        return ;
     }
     
    
