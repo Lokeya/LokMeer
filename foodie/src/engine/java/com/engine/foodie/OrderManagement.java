@@ -78,7 +78,6 @@ public class OrderManagement {
 		return jsonResponse;
 	}
 
-	
 	public JSONObject getDishInstanceCountforDate(Map func_params)
 	{
 		String dt = null;
@@ -530,10 +529,91 @@ public class OrderManagement {
 	}
 
 	public void placeOrder() {
-		// parsePlaceOrderJSON in JSONHandler.java parses the JSON input(received from front end)
-		// TO DO
-		// The above input to be passed as parameter to Stored Procedure 
-		// Call DB Stored Procedure that inserts data to tables
+		
+		try
+		{
+			//Get Connection to database
+			DbHandler dbh = new DbHandler();
+			Connection conn = dbh.getDBConnection();
+			conn.setAutoCommit(false);
+			
+			String sql = "INSERT INTO FoodieDB.tb_order(order_dt_time,user_id,dish_cnt,order_amt,comments,order_sts,create_ts,create_user,"
+					+ "update_ts, update_user)" + 
+					"	VALUES(now(),?,?,?,?,?,now(),current_user(),now(),current_user())";
+			
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS);		
+			
+			pstmt.setInt(1, 1000003);
+			pstmt.setInt(2, 2);
+			pstmt.setFloat(3, 300);
+			pstmt.setString(4, "Add Ghee instead of oil");
+			pstmt.setString(5,"O");
+			
+			System.out.println("First query :" +sql);
+		
+			pstmt.execute();
+			
+			System.out.println("Inserted Order");
+						
+			ResultSet rs = pstmt.getGeneratedKeys();
+			
+			int orderId = 0;
+			if (rs.next()) 
+			 {
+		            // Value of ID (Index 1 by table design).
+		            orderId = rs.getInt(1);
+		     }
+			
+			System.out.println("OrderID :" + orderId);
+			
+			String diSql = "INSERT INTO FoodieDB.tb_order_details(order_id, order_ln_id, dish_instance_id, unit_cnt, "
+					+ "order_di_amt, create_ts, create_user, update_ts, update_user) VALUES("
+					+ "?,?,?,?,?,now(),current_user(),now(),current_user())";
+			
+			PreparedStatement pstmtod = conn.prepareStatement(diSql);
+			
+			pstmtod.setInt(1, orderId);
+			pstmtod.setInt(2,1);
+			pstmtod.setInt(3, 1);
+			pstmtod.setInt(4, 1);
+			pstmtod.setFloat(5, 150);
+			
+			System.out.println("Second query :" + diSql);
+						
+			pstmtod.execute();
+			
+			System.out.println("Executed second query");
+			
+			
+			String diSql2 = "INSERT INTO FoodieDB.tb_order_details(order_id, order_ln_id, dish_instance_id, unit_cnt, "
+					+ "order_di_amt, create_ts, create_user, update_ts, update_user) VALUES("
+					+ "?,?,?,?,?,now(),current_user(),now(),current_user())";
+			
+			PreparedStatement pstmtod2 = conn.prepareStatement(diSql2);
+			
+			pstmtod2.setInt(1, orderId);
+			pstmtod2.setInt(2,2);
+			pstmtod2.setInt(3, 2);
+			pstmtod2.setInt(4, 1);
+			pstmtod2.setFloat(5, 150);
+			
+			System.out.println("Third query :" + diSql2);
+			
+			pstmtod2.execute();
+			
+			System.out.println("Executed third query");
+			
+			conn.commit();
+			
+			System.out.println("Commit complete");
+			
+			conn.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -50,10 +50,12 @@ public class UtilCaller {
 		//System.out.println("Diet Types JSON:" + dietTypes.toJSONString());
 		/***********************************************************************************/
 		
-		JSONHandler jh = new JSONHandler();
+		/*JSONHandler jh = new JSONHandler();
 		jh.parsePlaceOrderJSON();
 		System.out.println("Successfully parsed JSON");
-		
+		*/
+		om.placeOrder();
+		System.out.println("Done");
 	}
 
 }
