@@ -115,10 +115,10 @@ public class LambdaLoginTriggerHandler implements RequestStreamHandler{
 		          		+ "Diet_type_id, "
 		          		+ "User_nm, "
 		          		+ "Email_addr, "
-		          		+ "Phone_nbr, "
 		          		+ "Encrypted_pwd, "
+		          		+ "phone_nbr, "
 		          		+ "Seller_flg) "  
-		                + "VALUES (" + userid  +  ", 1, "+ building +", "+flat +", 1, \" " +  user_nm  + "\", \" "+ email + " \", \"8778454872\", \"kdhskjfhskdjfhskhfskjfhsdsdkjfskldfjdslf\", 0)");
+		                + "VALUES (" + userid  +  ", 1, "+ building +", "+flat +", 1, \" " +  user_nm  + "\", \" "+ email + " \",  \"kdhskjfhskdjfhskhfskjfhsdsdkjfskldfjdslf\",\"" +  mobile  + "\",0)");
 		
 		         /**********Order Management Calls*************/
 		          
