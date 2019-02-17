@@ -1,6 +1,8 @@
 package com.engine.foodie;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -259,7 +261,157 @@ public class KitchenManagement {
 		return jsonResponse;
 	}
 	
-
+	
+	public void SaveDishInstance()
+	{
+		int dish_id;
+		int user_id;
+		int diet_type_id;
+		int cuisine_id;
+		String dish_nm;
+		String dish_desc;
+		int qty;
+		//String dish_img_url;
+		
+		
+		dish_id = 0;
+		user_id = 1000003;
+		diet_type_id = 1;
+		cuisine_id = 0;
+		dish_nm = "Aloo Paratha with Raitha";
+		dish_desc = "2 Aloo Parathas with mixed veg raitha";
+		qty = 1;
+				
+		
+		try
+		{
+		//Get Connection to database
+		DbHandler dbh = new DbHandler();
+		Connection conn = dbh.getDBConnection();
+		conn.setAutoCommit(false);
+	
+		
+		if (dish_id == 0)
+			{
+			String sql = "INSERT INTO FoodieDB.tb_dish"
+					+ "(user_id, diet_type_id, cuisine_id, dish_nm, dish_desc, qty, dish_img_url, "
+					+ "create_ts, create_user, update_ts, update_user) VALUES "
+					+ "(?,?,?,?,?,?,NULL,now(), current_user(), now(), current_user())";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS);		
+			
+			pstmt.setInt(1, user_id);
+			pstmt.setInt(2, diet_type_id);
+			pstmt.setInt(3, cuisine_id);
+			pstmt.setString(4, dish_nm);
+			pstmt.setString(5, dish_desc);
+			pstmt.setInt(6, qty);
+						
+			System.out.println("Dish insert query :" +sql);
+			
+			pstmt.execute();
+			
+			System.out.println("Inserted Dish");
+						
+			ResultSet rs = pstmt.getGeneratedKeys();
+			
+			if (rs.next())
+				{
+				dish_id = rs.getInt(1);
+				}
+			}
+		else
+			{
+			String sql = "UPDATE FoodieDB.tb_dish SET " + 
+					"diet_type_id = ?," + 
+					"cuisine_id = ?," + 
+					"dish_desc = ?," + 
+					"qty = ?," + 
+					//"dish_img_url = ?," + 
+					"update_ts = now()," + 
+					"update_user = current_user()" + 
+					"WHERE dish_id = ?" ;
+						
+			PreparedStatement pstmt = conn.prepareStatement(sql);	
+			
+			pstmt.setInt(1, diet_type_id);
+			pstmt.setInt(2, cuisine_id);
+			pstmt.setString(3, dish_desc);
+			pstmt.setInt(4, qty);
+			//pstmt.setString(5, dish_img_url);
+			pstmt.setInt(6, dish_id);
+						
+			System.out.println("Dish update query :" +sql);
+			
+			pstmt.execute();
+			
+			System.out.println("Dish updated");
+			}
+		
+		Date menu_dt;
+		String pickup_start_tm_s;
+		String pickup_end_tm_s;
+		float price_amt;
+		int delivery_flg;
+		float delivery_charges;
+		int packing_charges_flg;
+		float packing_charges;
+		Date order_cutoff_datetime;
+		int unit_cutoff_cnt;
+		String dish_instance_status;
+		
+		/////////////////////////
+		//Set values for above variables
+		//////////////////////////
+		
+		pickup_start_tm_s = "18:00:00";
+		DateFormat df_s = new SimpleDateFormat("hh:mm:ss");
+		java.util.Date pickup_start_date = df_s.parse(pickup_start_tm_s);
+		Time pickup_start_tm = new Time(pickup_start_date.getTime());
+		
+		pickup_end_tm_s = "20:30:00";
+		DateFormat df_e = new SimpleDateFormat("hh:mm:ss");
+		java.util.Date pickup_end_date = df_e.parse(pickup_start_tm_s);
+		Time pickup_end_tm = new Time(pickup_end_date.getTime());
+		
+		//Inserting dish instance record
+		String di_sql = "	INSERT INTO FoodieDB.tb_dish_instance" + 
+				"	(dish_id, menu_dt, pickup_start_tm, pickup_end_tm, price_amt," + 
+				"	delivery_flg, delivery_charges, packing_charges_flg, packing_charges, order_cutoff_Datetime," + 
+				"	unit_cutoff_cnt, dish_instance_status, create_ts, create_user, update_ts, update_user)" + 
+				"	VALUES" + 
+				"	(?,?,?,?,?,?,?,?,?,?,?,?, now(), current_user(), now(), current_user())" ;
+					
+		PreparedStatement di_pstmt = conn.prepareStatement(di_sql);	
+		
+		di_pstmt.setInt(1, dish_id);
+		di_pstmt.setDate(2, menu_dt);
+		di_pstmt.setTime(3, pickup_start_tm);
+		di_pstmt.setTime(4, pickup_end_tm);
+		di_pstmt.setFloat(5, price_amt);
+		di_pstmt.setInt(6, delivery_flg);
+		di_pstmt.setFloat(7, delivery_charges);
+		di_pstmt.setInt(8, packing_charges_flg);
+		di_pstmt.setFloat(9, packing_charges);
+		di_pstmt.setDate(10, order_cutoff_datetime);
+		di_pstmt.setInt(11, unit_cutoff_cnt);
+		di_pstmt.setString(12, dish_instance_status);
+					
+		System.out.println("Dish instance insert query :" + di_sql);
+		
+		di_pstmt.execute();
+		
+		System.out.println("Dish instance updated");
+		
+		conn.commit();
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public JSONObject getDishInstanceInfo(Map func_params)
 	{
 		int dishInstanceId = 0;

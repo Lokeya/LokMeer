@@ -532,6 +532,19 @@ public class OrderManagement {
 		
 		try
 		{
+			
+			int user_id;
+			int dish_cnt;
+			float order_amt;
+			String comments;
+			String order_sts;
+			
+			user_id = 1000003;
+			dish_cnt = 2;
+			order_amt = 300;
+			comments = "Add ghee instead of oil";
+			order_sts = "O";
+			
 			//Get Connection to database
 			DbHandler dbh = new DbHandler();
 			Connection conn = dbh.getDBConnection();
@@ -545,11 +558,11 @@ public class OrderManagement {
 			PreparedStatement pstmt = conn.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);		
 			
-			pstmt.setInt(1, 1000003);
-			pstmt.setInt(2, 2);
-			pstmt.setFloat(3, 300);
-			pstmt.setString(4, "Add Ghee instead of oil");
-			pstmt.setString(5,"O");
+			pstmt.setInt(1, user_id);
+			pstmt.setInt(2, dish_cnt);
+			pstmt.setFloat(3, order_amt);
+			pstmt.setString(4, comments);
+			pstmt.setString(5, order_sts);
 			
 			System.out.println("First query :" +sql);
 		
@@ -574,11 +587,21 @@ public class OrderManagement {
 			
 			PreparedStatement pstmtod = conn.prepareStatement(diSql);
 			
+			int order_ln_id;
+			int dish_instance_id;
+			int unit_cnt;
+			float order_di_amt;
+			
+			order_ln_id = 1;
+			dish_instance_id = 1;
+			unit_cnt = 1;
+			order_di_amt = 150;
+			
 			pstmtod.setInt(1, orderId);
-			pstmtod.setInt(2,1);
-			pstmtod.setInt(3, 1);
-			pstmtod.setInt(4, 1);
-			pstmtod.setFloat(5, 150);
+			pstmtod.setInt(2, order_ln_id);
+			pstmtod.setInt(3, dish_instance_id);
+			pstmtod.setInt(4, unit_cnt);
+			pstmtod.setFloat(5, order_di_amt);
 			
 			System.out.println("Second query :" + diSql);
 						
@@ -593,11 +616,16 @@ public class OrderManagement {
 			
 			PreparedStatement pstmtod2 = conn.prepareStatement(diSql2);
 			
+			order_ln_id = 2;
+			dish_instance_id = 2;
+			unit_cnt = 1;
+			order_di_amt = 150;
+			
 			pstmtod2.setInt(1, orderId);
-			pstmtod2.setInt(2,2);
-			pstmtod2.setInt(3, 2);
-			pstmtod2.setInt(4, 1);
-			pstmtod2.setFloat(5, 150);
+			pstmtod2.setInt(2, order_ln_id);
+			pstmtod2.setInt(3, dish_instance_id);
+			pstmtod2.setInt(4, unit_cnt);
+			pstmtod2.setFloat(5, order_di_amt);
 			
 			System.out.println("Third query :" + diSql2);
 			
